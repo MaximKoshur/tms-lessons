@@ -1,5 +1,6 @@
 number = int(input())
-if number == 1 or number == 2 or number == 3 or number == 5 or number == 7:
-    print(True)
-else:
-    print(number%2!=0 and number%3!=0 and number%5!=0 and number%7!=0)
+count = 0
+for i in range(1,number + 1):
+    if number % i == 0:
+        count += 1
+print(count == 2 and number != 1 )
