@@ -1,5 +1,5 @@
 def matrix():
-    n = int(input("Size of matrix: "))
+    n = int(input())
     matrix = []
     for i in range(0, n):
         lst = [int(x) for x in input().split()]
@@ -39,7 +39,7 @@ def sum_diag(n,main_sum,*args):
         diag_sum_1 += matrix[i][i]
     for i in range(0,n,):
         diag_sum_2 += matrix[i][(n-1) - i]
-    if diag_sum_1 != main_sum and diag_sum_2 != main_sum:
+    if diag_sum_1 != main_sum or diag_sum_2 != main_sum:
         print(False)
         exit()
     print(True)
