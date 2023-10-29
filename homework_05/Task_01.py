@@ -1,9 +1,11 @@
 def is_year_leap(year):
     if year%400==0:
-        print(True)
-    elif(year%100==0):
-        print(False)
+        return(True)
+    elif year%100==0:
+        return(False)
+    elif year%4==0:
+        return(True)
     else:
-        print(True)
+        return(False)
 
-is_year_leap(int(input()))
+print(is_year_leap(int(input())))
