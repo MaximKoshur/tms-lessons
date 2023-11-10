@@ -1,4 +1,4 @@
-from datetime import date
+import datetime
 
 
 class Person:
@@ -11,4 +11,4 @@ class Person:
         print(f"Person: {self.full_name} ({self.gender}), {self.age} years old")
 
     def get_birth_years(self):
-        return int(str(date.today())[0:4]) - self.age
+        return datetime.datetime.now().year - self.age

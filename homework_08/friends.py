@@ -8,9 +8,10 @@ def get_oldest_person(friends):
         if i.age > age:
             age = i.age
             person = i
-    print("The oldest is", end = ' ')
+    print("The oldest is", end=' ')
     person.print_person_info()
     print("----------------------------------")
+
 
 def filter_male_person(friends):
     print("Male:")
@@ -23,7 +24,6 @@ my_friends = [Person("Danick", 35, 'M'),
               Person("Liza", 3, 'F'),
               Person("Yra", 78, 'M'),
               Person("Anasteisha", 40, 'F')]
-
 
 for i in my_friends:
     i.print_person_info()
