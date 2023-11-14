@@ -24,8 +24,8 @@ class Rational:
             a, b = b, a % b
 
         if self.__numerator % a == 0 and self.__denominator % a == 0:
-            self.__numerator = self.__numerator / a
-            self.__denominator = self.__denominator / a
+            self.__numerator /= a
+            self.__denominator /= a
 
     def __str__(self):
         return f"{int(self.__numerator)} / {int(self.__denominator)}"
