@@ -1,7 +1,7 @@
 import json
 import random
 import os
-
+import sqlite3
 
 def get_random_digits(count):
     return "".join([str(random.randint(0, 9)) for i in range(0, count)])
@@ -55,7 +55,7 @@ class Bank:
 class Controller:
     def __init__(self, data_file_name):
         self.data_file_name = data_file_name
-        bank_accounts: list[BankAccount] = load_accounts(data_file_name)
+        bank_accounts = load_accounts(data_file_name)
         self.bank = Bank(bank_accounts)
     def run(self):
         print("Наш банк открылся")
@@ -100,25 +100,42 @@ def convert_bank_account_dict(obj: BankAccount) -> dict:
 
 
 def save_accounts(obj: list[BankAccount], file_name: str):
-    with open(file_name, "w") as data:
-        save_users = {}
+    with sqlite3.connect('Bank.db') as connection:
         for i in obj:
-            user = {i.account_number: convert_bank_account_dict(i)}
-            save_users.update(user)
-        json.dump(save_users, data)
+            account = convert_bank_account_dict(i)
+            result = connection.execute("INSERT INTO Bank VALUES(?, ?, ?, ?)",
+                                        [account["card_holder"], account["money"], account["card_number"], account["account_number"]])
 
 
-def load_accounts(file_name) -> list[BankAccount]:
-    if not os.path.exists(file_name):
-        return []
-    with open(file_name, 'r') as file:
-        data = json.load(file)
+    # with open(file_name, "w") as data:
+    #     save_users = {}
+    #     for i in obj:
+    #         user = {i.account_number: convert_bank_account_dict(i)}
+    #         save_users.update(user)
+    #     json.dump(save_users, data)
+
+
+def load_accounts(file_name):
+    with sqlite3.connect('Bank.db') as connection:
+        result = connection.execute("SELECT * FROM Bank")
         return [BankAccount(
-            card_holder=item["card_holder"],
-            money=float(item["money"]),
-            card_number=item["card_number"],
-            account_number=item["account_number"]
-        ) for item in data.values()]
+                card_holder=item[0],
+                money=float(item[1]),
+                card_number=item[2],
+                account_number=item[3]
+            ) for item in result.fetchall()]
+
+
+    # if not os.path.exists(file_name):
+    #     return []
+    # with open(file_name, 'r') as file:
+    #     data = json.load(file)
+    #     return [BankAccount(
+    #         card_holder=item["card_holder"],
+    #         money=float(item["money"]),
+    #         card_number=item["card_number"],
+    #         account_number=item["account_number"]
+    #     ) for item in data.values()]
 
 
 if __name__ == '__main__':
