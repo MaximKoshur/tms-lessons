@@ -11,7 +11,7 @@ def save_contact():
 
 def show_contacts():
     with sqlite3.connect('TelephoneBase.bd') as connection:
-        result = connection.execute("SELECT * FROM TelephoneBase")
+        result = connection.execute("SELECT * FROM TelephoneBase ORDER BY name")
     print(result.fetchall())
 
 
