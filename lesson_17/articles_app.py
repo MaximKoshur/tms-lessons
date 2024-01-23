@@ -50,6 +50,7 @@ def reg_login(login, password):
         connection.execute("INSERT INTO users(login, password)"
                                 "VALUES (?, ?);",
                            (login, password))
+
         return i[0]
 
 
